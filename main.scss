@@ -1,0 +1,18 @@
+/*
+This simple stylesheet does not actually use Sass features.
+If you don't need Sass, don't bother with Sass.
+*/
+
+@mixin gap-hor($val) {> :not(:first-child, [hidden]) {margin-left: $val}}
+
+html {
+  font-family: system-ui, sans-serif;
+  padding: 4rem;
+  background-color: hsl(0, 0%, 14%);
+  color: white;
+}
+
+a[href] {color: aqua}
+.center {text-align: center}
+.italic {font-style: italic}
+.gap-hor {@include gap-hor(1rem)}

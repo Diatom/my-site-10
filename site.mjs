@@ -8,6 +8,8 @@ import * as dg from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/dom_glob_s
 import {paths as pt} from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/io_deno.mjs'
 import * as l from './live.mjs'
 
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
+
 const {E} = new p.Ren(dg.document).patchProto(dg.glob.Element)
 
 const DEV = Deno.args.includes(`--dev`)
@@ -172,7 +174,7 @@ function Layout(...chi) {
 
 function Nav(page) {
   return E.nav.props({class: `gap-hor`}).chi(
-    E.span.chi(`All links:`),
+    // E.span.chi(`All links:`),
     a.map(page.site.all(), PageLink),
   )
 }

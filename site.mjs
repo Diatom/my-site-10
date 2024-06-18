@@ -55,6 +55,7 @@ class Page extends a.Emp {
   }
 }
 
+// 404 //
 class Page404 extends Page {
   // Only for `Nav`.
   urlPath() {return `404`}
@@ -71,6 +72,7 @@ class Page404 extends Page {
   }
 }
 
+// Main //
 class PageIndex extends Page {
   urlPath() {return `/`}
   fsPath() {return `index.html`}
@@ -85,9 +87,10 @@ class PageIndex extends Page {
   }
 }
 
-class PageAbout extends Page {
-  urlPath() {return `/about`}
-  title() {return `About`}
+// Blog //
+class PageBlog extends Page {
+  urlPath() {return `/blog`}
+  title() {return `Blog`}
 
   body() {
     return Layout(
@@ -98,6 +101,35 @@ class PageAbout extends Page {
   }
 }
 
+// Bookreview //
+class PageBookreview extends Page {
+  urlPath() {return `/bookreview`}
+  title() {return `Bookreview`}
+
+  body() {
+    return Layout(
+      E.h1.chi(this.title()),
+      E.p.chi(`This text was pre-rendered in HTML.`),
+      Nav(this),
+    )
+  }
+}
+
+// Cheese //
+class PageCheese extends Page {
+  urlPath() {return `/cheese`}
+  title() {return `Cheese`}
+
+  body() {
+    return Layout(
+      E.h1.chi(this.title()),
+      E.p.chi(`This text was pre-rendered in HTML.`),
+      Nav(this),
+    )
+  }
+}
+
+// Ibri //
 class PageIbri extends Page {
   urlPath() {return `/ibri`}
   title() {return `Ibri`}
@@ -115,7 +147,7 @@ class Site extends a.Emp {
   constructor() {
     super()
     this.notFound = new Page404(this)
-    this.other = [new PageIndex(this), new PageAbout(this), new PageIbri(this)]
+    this.other = [new PageIndex(this), new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
   }
 
   all() {return [this.notFound, ...this.other]}

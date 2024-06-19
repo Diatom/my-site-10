@@ -73,9 +73,11 @@ class Page404 extends Page {
   body() {
     return Layout(
       E.header.chi(Nav(this)),
-      E.h1.chi(this.title()),
-      E.img.props({src: `./images/severin2.jpg`, alt: `Severin404`}),
-      E.a.props({href: `/`}).chi(`Вернуться на главную`),
+      E.main.chi(
+        E.h1.chi(this.title()),
+        E.img.props({alt: `Severin404`, src: `./images/severin.jpg`}),
+        E.a.props({href: `/`}).chi(`Вернуться на главную`),
+      ),
       Footer(this)
     )
   }

@@ -72,7 +72,7 @@ class Page404 extends Page {
     return Layout(
       E.header.chi(Nav(this)),
       E.h1.chi(this.title()),
-      E.a.props({href: `/`}).chi(`Return home`),
+      E.a.props({href: `/`}).chi(`Вернуться на главную`),
     )
   }
 }
@@ -86,7 +86,7 @@ class PageIndex extends Page {
   body() {
     return Layout(
       E.header.chi(Nav(this)),
-      Main(this).chi(
+      E.main.chi(
         E.aboutme.chi(E.h1.chi(`Северин Богучарский`)),
         E.lastart,
         E.principe.chi(marked(principe))
@@ -104,7 +104,38 @@ class PageBlog extends Page {
   body() {
     return Layout(
       E.header.chi(Nav(this)),
-      E.p.chi(`This text was pre-rendered in HTML.`),
+      E.main.chi(
+        E.blog.chi(
+          list.map((val) => {
+              return E.div.props({id: val.id, dataindex: val.dataindex}).chi(
+                E.span.chi(val.date),
+                E.a.props({href: '/blog/' + val.dataindex}).chi(
+                  E.h3.chi(val.h3),
+                  E.p.chi(val.p),
+                  E.img.props({alt: val.alt, src: val.src})
+                )
+              )
+            }
+          )
+        )
+      ),
+      Footer(this)
+    )
+  }
+}
+
+// Article //
+class PageArticle extends Page {
+  urlPath() {return `/` + list.map((val) => {return val.dataindex})}
+  title() {return ``}
+
+  body() {
+    return Layout(
+      E.header.chi(Nav(this)),
+      E.main.chi(
+        E.div(marked(art))
+      ),
+      Footer(this)
     )
   }
 }
@@ -152,7 +183,7 @@ class Site extends a.Emp {
   constructor() {
     super()
     this.notFound = new Page404(this)
-    this.other = [new PageIndex(this), new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
+    this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this), new PageArticle(this)]
   }
 
   all() {return [this.notFound, ...this.other]}
@@ -169,6 +200,10 @@ function Layout(...chi) {
         E.title.chi(`Северин Богучарский`),
         E.link.props({rel: `icon`, type: `image/x-icon`, href: `./images/severin.ico`}),
         E.link.props({rel: `stylesheet`, href: `/main.css`}),
+        E.link.props({rel: `stylesheet`, href: `https://fonts.googleapis.com/css2?family=Bitter:
+          ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,
+          800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather:
+          ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap`}),
         a.vac(DEV) && E.script.chi(`navigator.serviceWorker.register('/sw.mjs')`),
       ),
       E.body.props({class: `center limit`}).chi(chi),
@@ -182,10 +217,6 @@ function Nav(page) {
   return E.nav.props({class: `gap-hor`}).chi(
     a.map(page.site.all(), PageLink),
   )
-}
-
-function Main(page) {
-  return E.main
 }
 
 function Footer(page) {

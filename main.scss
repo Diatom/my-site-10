@@ -6,7 +6,7 @@ If you don't need Sass, don't bother with Sass.
 // @mixin gap-hor($val) {> :not(:first-child, [hidden]) {margin-left: $val}}
 
 html {
-  font-family: system-ui, sans-serif;
+  // font-family: system-ui, sans-serif;
   padding: 2rem 4rem 0 4rem;
   background-color: hsl(0, 0%, 14%);
   color: white;
@@ -43,7 +43,7 @@ header {
   a {
     padding: 0.3rem 2rem 0.3rem 2rem;
     font-family: 'Bitter', serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: white;
   }
   a:hover {
@@ -128,6 +128,45 @@ aboutme {
     margin: 0 1rem 0 10rem;
     width: 40em;
     padding: 0;
+    font-family: 'Bitter', serif;
+  }
+}
+
+blog {
+  margin: 5em 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-between;
+
+  div {
+    margin: 1em 0;
+    display: flex;
+    width: 48%;
+    flex-direction: column;
+
+  }
+  a {
+    color: white;
+    flex-direction: column;
+
+  }
+  a:hover {
+    text-decoration: none;
+    color: $rose-red;
+  }
+  span {
+    font-size: 0.9em;
+    color: grey;
+  }
+  h3 {
+    font-size: 1.4em;
+    margin: 0;
+    padding: 0;
+  }
+  img {
+    width: 100%;
   }
 }
 

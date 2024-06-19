@@ -3,7 +3,6 @@ This simple stylesheet does not actually use Sass features.
 If you don't need Sass, don't bother with Sass.
 */
 html {
-  font-family: system-ui, sans-serif;
   padding: 2rem 4rem 0 4rem;
   background-color: hsl(0, 0%, 14%);
   color: white;
@@ -33,7 +32,7 @@ header {
 header a {
   padding: 0.3rem 2rem 0.3rem 2rem;
   font-family: "Bitter", serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: white;
 }
 header a:hover {
@@ -118,4 +117,40 @@ aboutme h1 {
   margin: 0 1rem 0 10rem;
   width: 40em;
   padding: 0;
+  font-family: "Bitter", serif;
+}
+
+blog {
+  margin: 5em 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-between;
+}
+blog div {
+  margin: 1em 0;
+  display: flex;
+  width: 48%;
+  flex-direction: column;
+}
+blog a {
+  color: white;
+  flex-direction: column;
+}
+blog a:hover {
+  text-decoration: none;
+  color: #be264c;
+}
+blog span {
+  font-size: 0.9em;
+  color: grey;
+}
+blog h3 {
+  font-size: 1.4em;
+  margin: 0;
+  padding: 0;
+}
+blog img {
+  width: 100%;
 }

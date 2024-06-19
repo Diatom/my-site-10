@@ -3,7 +3,6 @@ This simple stylesheet does not actually use Sass features.
 If you don't need Sass, don't bother with Sass.
 */
 html {
-  padding: 2rem 4rem 0 4rem;
   background-color: hsl(0, 0%, 14%);
   color: white;
 }
@@ -32,7 +31,7 @@ header {
 header a {
   padding: 0.3rem 2rem 0.3rem 2rem;
   font-family: "Bitter", serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: white;
 }
 header a:first-child {

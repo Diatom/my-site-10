@@ -9,12 +9,9 @@ import {paths as pt} from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/io_d
 import * as l from './live.mjs'
 
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
+const principe = await Deno.readTextFile('./data/principe.md');
 
-// const fetP = await fetch (`./data/principe.md`)
-// const principe = await fetP.text()
-// const marked = require('marked');
-// const fs = require('fs');
-// const principe = fs.readFileSync('./data/principe.md', 'utf8')
+import { contact, list } from './data/data.js'
 
 const {E} = new p.Ren(dg.document).patchProto(dg.glob.Element)
 
@@ -73,7 +70,7 @@ class Page404 extends Page {
 
   body() {
     return Layout(
-      Nav(this),
+      E.header.chi(Nav(this)),
       E.h1.chi(this.title()),
       E.a.props({href: `/`}).chi(`Return home`),
     )
@@ -88,13 +85,11 @@ class PageIndex extends Page {
 
   body() {
     return Layout(
-      Nav(this),
-      E.h1.chi(this.title()),
-      E.p.chi(`This text was pre-rendered in HTML.`),
+      E.header.chi(Nav(this)),
       Main(this).chi(
         E.aboutme.chi(E.h1.chi(`Северин Богучарский`)),
         E.lastart,
-        // E.principe.chi(marked(principe))
+        E.principe.chi(marked(principe))
       ),
       Footer(this)
     )
@@ -108,8 +103,7 @@ class PageBlog extends Page {
 
   body() {
     return Layout(
-      Nav(this),
-      E.h1.chi(this.title()),
+      E.header.chi(Nav(this)),
       E.p.chi(`This text was pre-rendered in HTML.`),
     )
   }
@@ -122,8 +116,7 @@ class PageBookreview extends Page {
 
   body() {
     return Layout(
-      Nav(this),
-      E.h1.chi(this.title()),
+      E.header.chi(Nav(this)),
       E.p.chi(`This text was pre-rendered in HTML.`),
     )
   }
@@ -136,8 +129,7 @@ class PageCheese extends Page {
 
   body() {
     return Layout(
-      Nav(this),
-      E.h1.chi(this.title()),
+      E.header.chi(Nav(this)),
       E.p.chi(`This text was pre-rendered in HTML.`),
     )
   }
@@ -150,8 +142,7 @@ class PageIbri extends Page {
 
   body() {
     return Layout(
-      Nav(this),
-      E.h1.chi(this.title()),
+      E.header.chi(Nav(this)),
       E.p.chi(`This text was pre-rendered in HTML.`),
     )
   }
@@ -199,10 +190,13 @@ function Main(page) {
 
 function Footer(page) {
   return E.footer.chi(
-    E.div.chi(`Любое использование либо копирование материалов или подборки материалов сайта, 
+    E.p.chi(`Любое использование либо копирование материалов или подборки материалов сайта, 
       элементов дизайна и оформления допускается только cо ссылкой на источник 
       https://diatom.github.io/ и указанием авторства`),
-    // a.map(page.site.all(), PageLink),
+    E.div.chi(
+      Contact(contact)
+    ),
+    Nav(page),
     E.span.chi(E.a.props({href: `https://github.com/Diatom/diatom.github.io`}).
     chi(`© 2024. Сайт сделал Severin B. 👾`)
     )
@@ -212,4 +206,12 @@ function Footer(page) {
 function PageLink(page) {
   a.reqInst(page, Page)
   return E.a.props({href: page.urlPath()}).chi(page.title())
+}
+
+function Contact(cont) {
+  return cont.map((val) => {
+    for (let [key, value] of Object.entries(val)) {
+      return E.a.props({href: value}).chi(key);
+    }
+  })
 }

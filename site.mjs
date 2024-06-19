@@ -12,6 +12,8 @@ import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 const principe = await Deno.readTextFile('./data/principe.md');
 
 import { contact, list } from './data/data.js'
+import { books } from './data/data-books.js'
+import { cheese } from './data/data-cheese.js'
 
 const {E} = new p.Ren(dg.document).patchProto(dg.glob.Element)
 
@@ -72,7 +74,9 @@ class Page404 extends Page {
     return Layout(
       E.header.chi(Nav(this)),
       E.h1.chi(this.title()),
+      E.img.props({src: `./images/severin2.jpg`, alt: `Severin404`}),
       E.a.props({href: `/`}).chi(`Вернуться на главную`),
+      Footer(this)
     )
   }
 }
@@ -125,20 +129,20 @@ class PageBlog extends Page {
 }
 
 // Article //
-class PageArticle extends Page {
-  urlPath() {return `/` + list.map((val) => {return val.dataindex})}
-  title() {return ``}
+// class PageArticle extends Page {
+//   urlPath() {return `/blog/` + list.map((val) => {return val.dataindex})}
+//   title() {return ``}
 
-  body() {
-    return Layout(
-      E.header.chi(Nav(this)),
-      E.main.chi(
-        E.div(marked(art))
-      ),
-      Footer(this)
-    )
-  }
-}
+//   body() {
+//     return Layout(
+//       E.header.chi(Nav(this)),
+//       E.main.chi(
+//         E.div(marked(art))
+//       ),
+//       Footer(this)
+//     )
+//   }
+// }
 
 // Bookreview //
 class PageBookreview extends Page {
@@ -148,7 +152,24 @@ class PageBookreview extends Page {
   body() {
     return Layout(
       E.header.chi(Nav(this)),
-      E.p.chi(`This text was pre-rendered in HTML.`),
+      E.main.chi(
+        E.books.chi(
+          books.map((val) => {
+            return E.div.props({class: `book`, dataindex: val.dataindex, id: val.Id}).chi(
+              E.span.chi(val.Id),
+              E.h3.chi(val.name),
+              E.p.chi(`Автор: ` + val.author),
+              E.p.chi(`Жанр: ` + val.genre),
+              E.p.chi(`Дата: ` + val.date),
+              E.p.chi(val.description),
+              E.p.chi(`Мой рейтинг: ` + val.rating),
+              E.span.chi(`Теги: ` + val.tags),
+            )
+          }
+        )
+        )
+      ),
+      Footer(this)
     )
   }
 }
@@ -161,7 +182,26 @@ class PageCheese extends Page {
   body() {
     return Layout(
       E.header.chi(Nav(this)),
-      E.p.chi(`This text was pre-rendered in HTML.`),
+      E.main.chi(
+        E.books.chi(
+          cheese.map((val) => {
+            return E.div.props({class: `book`, dataindex: val.tags, id: val.Id}).chi(
+              E.span.chi(val.Id),
+              E.h3.chi(val.name),
+              E.p.chi(`Срок созревания: ` + val.age),
+              E.p.chi(`Молоко: ` + val.milk),
+              E.p.chi(`Первое упоминание: ` + val.since),
+              E.p.chi(`Тип: ` + val.type),
+              E.p.chi(`Вкус: ` + val.taste),
+              E.p.chi(`Плесень: ` + val.mold),
+              E.p.chi(`Описание: ` + val.description),
+              E.span.chi(`Теги: ` + val.tags),
+            )
+          }
+        )
+        )
+      ),
+      Footer(this)
     )
   }
 }
@@ -183,7 +223,8 @@ class Site extends a.Emp {
   constructor() {
     super()
     this.notFound = new Page404(this)
-    this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this), new PageArticle(this)]
+    // this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this), new PageArticle(this)]
+    this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
   }
 
   all() {return [this.notFound, ...this.other]}

@@ -41,6 +41,9 @@ header {
   justify-content: left;
   width: 100%;
   a {
+    &:first-child {
+      display: none;
+    }
     padding: 0.3rem 2rem 0.3rem 2rem;
     font-family: 'Bitter', serif;
     font-size: 1.3rem;
@@ -93,6 +96,13 @@ footer {
     margin: 0;
     padding: 0.3rem 1rem 0.3rem 1rem;
     color: white;
+  }
+  nav {
+    a {
+      &:first-child {
+        display: none;
+      }
+    }
   }
   a:hover {
     text-decoration: underline 1px solid white;
@@ -170,3 +180,30 @@ blog {
   }
 }
 
+books {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 5em 0 0 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  
+  .book {
+    background-color: rgba(155, 131, 131, 0.089);
+    border-radius: 2%;
+    margin: 1em;
+    padding: 0.6em;
+    width: 20em;
+    font-size: 0.9em;
+    p {
+      margin: 0.5em 0;
+    }
+    span {
+      font-size: 0.8em;
+      color: $rose-red;
+    }
+    h3 {
+      margin: 0.5em 0;
+    }
+  }
+}

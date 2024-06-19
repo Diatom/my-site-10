@@ -35,6 +35,9 @@ header a {
   font-size: 1.3rem;
   color: white;
 }
+header a:first-child {
+  display: none;
+}
 header a:hover {
   text-decoration: underline 2px solid white;
 }
@@ -82,6 +85,9 @@ footer a {
   margin: 0;
   padding: 0.3rem 1rem 0.3rem 1rem;
   color: white;
+}
+footer nav a:first-child {
+  display: none;
 }
 footer a:hover {
   text-decoration: underline 1px solid white;
@@ -153,4 +159,31 @@ blog h3 {
 }
 blog img {
   width: 100%;
+}
+
+books {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 5em 0 0 0;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+books .book {
+  background-color: rgba(155, 131, 131, 0.089);
+  border-radius: 2%;
+  margin: 1em;
+  padding: 0.6em;
+  width: 20em;
+  font-size: 0.9em;
+}
+books .book p {
+  margin: 0.5em 0;
+}
+books .book span {
+  font-size: 0.8em;
+  color: #be264c;
+}
+books .book h3 {
+  margin: 0.5em 0;
 }

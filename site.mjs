@@ -10,6 +10,12 @@ import * as l from './live.mjs'
 
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 
+// const fetP = await fetch (`./data/principe.md`)
+// const principe = await fetP.text()
+// const marked = require('marked');
+// const fs = require('fs');
+// const principe = fs.readFileSync('./data/principe.md', 'utf8')
+
 const {E} = new p.Ren(dg.document).patchProto(dg.glob.Element)
 
 const DEV = Deno.args.includes(`--dev`)
@@ -62,14 +68,14 @@ class Page404 extends Page {
   // Only for `Nav`.
   urlPath() {return `404`}
   fsPath() {return `404.html`}
-  title() {return `Page Not Found`}
+  title() {return `Страница не найдена`}
   res() {return a.resBui().html(this.body()).code(404).res()}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.a.props({href: `/`}).chi(`Return home`),
-      Nav(this),
     )
   }
 }
@@ -78,13 +84,19 @@ class Page404 extends Page {
 class PageIndex extends Page {
   urlPath() {return `/`}
   fsPath() {return `index.html`}
-  title() {return `Main Page`}
+  title() {return `Главная`}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.p.chi(`This text was pre-rendered in HTML.`),
-      Nav(this),
+      Main(this).chi(
+        E.aboutme.chi(E.h1.chi(`Северин Богучарский`)),
+        E.lastart,
+        // E.principe.chi(marked(principe))
+      ),
+      Footer(this)
     )
   }
 }
@@ -92,13 +104,13 @@ class PageIndex extends Page {
 // Blog //
 class PageBlog extends Page {
   urlPath() {return `/blog`}
-  title() {return `Blog`}
+  title() {return `Блог`}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.p.chi(`This text was pre-rendered in HTML.`),
-      Nav(this),
     )
   }
 }
@@ -106,13 +118,13 @@ class PageBlog extends Page {
 // Bookreview //
 class PageBookreview extends Page {
   urlPath() {return `/bookreview`}
-  title() {return `Bookreview`}
+  title() {return `Обзоры книг`}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.p.chi(`This text was pre-rendered in HTML.`),
-      Nav(this),
     )
   }
 }
@@ -120,13 +132,13 @@ class PageBookreview extends Page {
 // Cheese //
 class PageCheese extends Page {
   urlPath() {return `/cheese`}
-  title() {return `Cheese`}
+  title() {return `Сыр`}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.p.chi(`This text was pre-rendered in HTML.`),
-      Nav(this),
     )
   }
 }
@@ -134,13 +146,13 @@ class PageCheese extends Page {
 // Ibri //
 class PageIbri extends Page {
   urlPath() {return `/ibri`}
-  title() {return `Ibri`}
+  title() {return `Ibri®`}
 
   body() {
     return Layout(
+      Nav(this),
       E.h1.chi(this.title()),
       E.p.chi(`This text was pre-rendered in HTML.`),
-      Nav(this),
     )
   }
 }
@@ -161,7 +173,10 @@ function Layout(...chi) {
   return p.renderDocument(
     E.html.chi(
       E.head.chi(
-        E.link.props({rel: `icon`, href: `data:;base64,=`}),
+        E.meta.props({charset: `utf-8`}),
+        E.meta.props({name: `viewport`, content: `width=device-width, initial-scale=1`}),
+        E.title.chi(`Северин Богучарский`),
+        E.link.props({rel: `icon`, type: `image/x-icon`, href: `./images/severin.ico`}),
         E.link.props({rel: `stylesheet`, href: `/main.css`}),
         a.vac(DEV) && E.script.chi(`navigator.serviceWorker.register('/sw.mjs')`),
       ),
@@ -174,8 +189,23 @@ function Layout(...chi) {
 
 function Nav(page) {
   return E.nav.props({class: `gap-hor`}).chi(
-    // E.span.chi(`All links:`),
     a.map(page.site.all(), PageLink),
+  )
+}
+
+function Main(page) {
+  return E.main
+}
+
+function Footer(page) {
+  return E.footer.chi(
+    E.div.chi(`Любое использование либо копирование материалов или подборки материалов сайта, 
+      элементов дизайна и оформления допускается только cо ссылкой на источник 
+      https://diatom.github.io/ и указанием авторства`),
+    // a.map(page.site.all(), PageLink),
+    E.span.chi(E.a.props({href: `https://github.com/Diatom/diatom.github.io`}).
+    chi(`© 2024. Сайт сделал Severin B. 👾`)
+    )
   )
 }
 

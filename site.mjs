@@ -10,6 +10,7 @@ import * as l from './live.mjs'
 
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 const principe = await Deno.readTextFile('./data/principe.md');
+const ibri = await Deno.readTextFile('./data/ibri.md');
 
 import { contact, list, contactIbri } from './data/data.js'
 import { books } from './data/data-books.js'
@@ -238,7 +239,7 @@ class PageIbri extends Page {
     return Layout(
       E.main.chi(
         E.aboutibri,
-        E.principe
+        E.principe.chi(marked(ibri))
       ),
       FooterIbri(this)
     )

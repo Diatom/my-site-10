@@ -75,8 +75,9 @@ class Page404 extends Page {
       E.header.chi(Nav(this)),
       E.main.chi(
         E.h1.chi(this.title()),
-        E.img.props({alt: `Severin404`, src: `./images/severin.jpg`}),
-        E.a.props({href: `/`}).chi(`Вернуться на главную`),
+        E.a.props({href: `/`, class: `error`}).chi(`Вернуться на главную`,
+          E.img.props({alt: `Severin404`, src: `/images/severin404.jpg`, class: `error`})
+        )        
       ),
       Footer(this)
     )
@@ -155,9 +156,19 @@ class PageBookreview extends Page {
     return Layout(
       E.header.chi(Nav(this)),
       E.main.chi(
+        E.div.props({class: `info`}).chi(
+          E.search.chi(
+            E.label.props({for: `searchInput`}).chi(`Краткие оценки прочитанных мною книг`),
+            E.div.chi(
+              E.input.props({type: `text`, id: `searchInput`, placeholder: `книга, автор, жанр...`}),
+              E.button.props({id: `searchButton`, type: `submit`}).chi(`🔍`)
+            )
+          ),
+          E.form.props({class: `my-tags`, is: `my-tags`})
+        ),
         E.books.chi(
           books.map((val) => {
-            return E.div.props({class: `book`, dataindex: val.dataindex, id: val.Id}).chi(
+            return E.div.props({class: `book`, dataindex: val.tags, id: val.Id}).chi(
               E.span.chi(val.Id),
               E.h3.chi(val.name),
               E.p.chi(`Автор: ` + val.author),
@@ -168,7 +179,7 @@ class PageBookreview extends Page {
               E.span.chi(`Теги: ` + val.tags),
             )
           }
-        )
+          )
         )
       ),
       Footer(this)

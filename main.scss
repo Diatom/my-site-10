@@ -81,11 +81,14 @@ footer {
   font-size: 0.9em;
   padding: 1.5rem 0 0 0;
   margin: 15em 0 0 0;
-
+  img {
+    width: 10em;
+    margin: 0 2em;
+  }
   div, nav {
     display: flex;
     flex-direction: column;
-    margin: 0 4rem 0 4rem;
+    margin: 0 2rem 0 2rem;
   }
   a {
     margin: 0;
@@ -387,7 +390,9 @@ form {
     gap: 20px;
     padding: 2em 0;
     margin: 10em 0 0 0;
-
+    img {
+      margin: 2em 2em;
+    }
     p {
       width: 80%;
     }

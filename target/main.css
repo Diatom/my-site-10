@@ -71,10 +71,14 @@ footer {
   padding: 1.5rem 0 0 0;
   margin: 15em 0 0 0;
 }
+footer img {
+  width: 10em;
+  margin: 0 2em;
+}
 footer div, footer nav {
   display: flex;
   flex-direction: column;
-  margin: 0 4rem 0 4rem;
+  margin: 0 2rem 0 2rem;
 }
 footer a {
   margin: 0;
@@ -336,6 +340,9 @@ form input[type=checkbox]:checked + label {
     gap: 20px;
     padding: 2em 0;
     margin: 10em 0 0 0;
+  }
+  footer img {
+    margin: 2em 2em;
   }
   footer p {
     width: 80%;

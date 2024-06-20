@@ -121,6 +121,20 @@ aboutme h1 {
   font-family: "Bitter", serif;
 }
 
+aboutibri {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0 0 5rem 0;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: url("./images/ibri.png");
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
 principe {
   margin: 4em 0;
   display: flex;

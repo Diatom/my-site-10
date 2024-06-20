@@ -11,7 +11,7 @@ import * as l from './live.mjs'
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 const principe = await Deno.readTextFile('./data/principe.md');
 
-import { contact, list } from './data/data.js'
+import { contact, list, contactIbri } from './data/data.js'
 import { books } from './data/data-books.js'
 import { cheese } from './data/data-cheese.js'
 
@@ -236,8 +236,11 @@ class PageIbri extends Page {
 
   body() {
     return Layout(
-      E.header.chi(Nav(this)),
-      E.p.chi(`This text was pre-rendered in HTML.`),
+      E.main.chi(
+        E.aboutibri,
+        E.principe
+      ),
+      FooterIbri(this)
     )
   }
 }
@@ -293,6 +296,19 @@ function Footer(page) {
       Contact(contact)
     ),
     Nav(page),
+    E.span.chi(E.a.props({href: `https://github.com/Diatom/diatom.github.io`}).
+    chi(`© 2024. Сайт сделал Severin B. 👾`)
+    )
+  )
+}
+
+function FooterIbri(page) {
+  return E.footer.chi(
+    E.p.chi(`Ibri® — все права защищены. Любое использование либо копирование материалов или подборки материалов сайта, 
+      элементов дизайна и оформления допускается только cо ссылкой на источник`),
+    E.div.chi(
+      Contact(contactIbri)
+    ),
     E.span.chi(E.a.props({href: `https://github.com/Diatom/diatom.github.io`}).
     chi(`© 2024. Сайт сделал Severin B. 👾`)
     )

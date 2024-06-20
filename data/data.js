@@ -13,6 +13,18 @@ export const contact = [
     }
 ]
 
+export const contactIbri = [
+    {
+        'bogucharskiy.s@yandex.ru': `mailto: bogucharskiy.s@yandex.ru`
+    },
+    {
+        'Telegram: @Severinz': `https://telegram.me/Severinz`
+    },
+    {
+        '+7 (903) 186-93-32': `tel:+79031869332`
+    }
+]
+
 export const list = [
     {
         'id': '0',

@@ -3,10 +3,6 @@ import { tags } from './data/data-books.js'
 
 const {E} = p.Ren.native()
 
-// document.body.append(
-//   E.p.props({class: `italic`}).chi(`This text was rendered in the browser.`),
-// )
-
 // Render tags
 const divs = document.getElementsByClassName(`book`)
 

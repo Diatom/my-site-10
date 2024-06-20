@@ -8,63 +8,56 @@ const {E} = p.Ren.native()
 // )
 
 // Render tags
-const divs = document.getElementsByClassName('book')
+const divs = document.getElementsByClassName(`book`)
 
-export class MyCheck extends HTMLInputElement {
-  render(name) {
-    this.name = 'tags'
-    const label = document.createElement('label')
-    this.type = 'checkbox'
-    label.setAttribute('class', 'button-filter')
-    this.value = name.trim()
-    label.append(this, this.value)
-    this.onchange = this.onChange
-    return label
-  }
-  onChange(event) {
-    console.log(this.value)
-
-    for (const elem of divs) {
-      const data = elem.getAttribute('data-index')
-      if (data.includes(this.value)) {
-        elem.hidden = false
-      } else {
-        elem.hidden = true
+class MyCheck extends HTMLInputElement {
+    render(name) {
+        this.onchange = this.onChange
+        return E.label.props({name: `tags`, class: `button-filter`}).chi(
+            E.input.props({type: `checkbox`}).chi()
+        )
+    }
+    onChange(event) {
+      console.log(this.value)
+  
+      for (const elem of divs) {
+        const data = elem.getAttribute('data-index')
+        if (data.includes(this.value)) {
+          elem.hidden = false
+        } else {
+          elem.hidden = true
+        }
       }
     }
-  }
 }
 customElements.define('my-check', MyCheck, {extends: 'input'})
-
-
+    
 // Render form
-export class MyTags extends HTMLFormElement {
-  render() {
-    for (const name of tags) {
-      this.appendChild(new MyCheck().render(name))
-    }
-  }
-  onChange() {
-    const data = new FormData(this) 
-    for (const elem of divs) {
-      if (data.getAll('tags').length < 1) {
-        elem.hidden = false
-        console.log("FormData is empty")
-      } else {
-        console.log("FormData contains data")
+class MyTags extends HTMLFormElement {
+    render() {
+      for (const name of tags) {
+        this.appendChild(new MyCheck().render(name))
       }
     }
-    console.log(data.getAll('tags'))
-  }
-  connectedCallback() {
-    this.onchange = this.onChange
-    this.setAttribute('class', 'my-tags')
-    this.render()
-  }
+    onChange() {
+      const data = new FormData(this) 
+      for (const elem of divs) {
+        if (data.getAll('tags').length < 1) {
+          elem.hidden = false
+          console.log("FormData is empty")
+        } else {
+          console.log("FormData contains data")
+        }
+      }
+      console.log(data.getAll('tags'))
+    }
+    connectedCallback() {
+      this.onchange = this.onChange
+      this.setAttribute('class', 'my-tags')
+      this.render()
+    }
 }
 customElements.define('my-tags', MyTags, {extends: 'form'})
-
-
 
 // Render search
 const searchInput = document.getElementById("searchInput")
@@ -85,7 +78,6 @@ searchButton.addEventListener('click', () => {
   const userInput = searchInput.value.toLowerCase()
   searchData(userInput)
 })
-
 
 // Enter click
 document.addEventListener('keydown', function(event) {

@@ -164,7 +164,7 @@ class PageBookreview extends Page {
               E.button.props({id: `searchButton`, type: `submit`}).chi(`🔍`)
             )
           ),
-          E.form.props({class: `my-tags`, is: `my-tags`})
+          // E.form.props({class: `my-tags`, is: `my-tags`})
         ),
         E.books.chi(
           books.map((val) => {
@@ -196,6 +196,16 @@ class PageCheese extends Page {
     return Layout(
       E.header.chi(Nav(this)),
       E.main.chi(
+        E.div.props({class: `info`}).chi(
+          E.search.chi(
+            E.label.props({for: `searchInput`}).chi(`Моя вторая профессия — сыродел. Составил небольшой каталог сыра. Только посмотрите, сколько существует видов :)`),
+            E.div.chi(
+              E.input.props({type: `text`, id: `searchInput`, placeholder: `найти сыр...`}),
+              E.button.props({id: `searchButton`, type: `submit`}).chi(`🔍`)
+            )
+          ),
+          E.form.props({class: `my-tags`, is: `my-tags`})
+        ),
         E.books.chi(
           cheese.map((val) => {
             return E.div.props({class: `book`, dataindex: val.tags, id: val.Id}).chi(

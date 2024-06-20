@@ -182,7 +182,7 @@ books {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
-  margin: 5em 0 0 0;
+  margin: 5em 0 10em 0;
   flex-direction: row;
   justify-content: flex-start;
 }
@@ -227,7 +227,7 @@ search label {
   margin: 0 0 0 0.5em;
 }
 search div {
-  width: 100%;
+  width: 90%;
   display: flex;
   height: 35px;
   background-color: #f0e9e9;
@@ -309,6 +309,10 @@ form input[type=checkbox]:checked + label {
   }
 }
 @media screen and (max-width: 860px) {
+  aboutme h1 {
+    margin: 0 1rem 0 2rem;
+    font-size: 1.8em;
+  }
   footer {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -354,6 +358,7 @@ form input[type=checkbox]:checked + label {
   }
   header a {
     font-size: 1em;
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   }
   form label {
     padding: 2px 4px;

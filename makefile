@@ -13,7 +13,7 @@ watch: clean
 build: clean all
 
 ci:
-    rm -rf $(shell find . -type f -not -path "./$(TAR)/*") $(shell find . -type d -not -path "./$(TAR)")
+    rm -rf $(shell find . -type f -not -path "./$(TAR)/*") && $(shell find . -type d -not -path "./$(TAR)")
     cp -r $(TAR)/* .
     rm -rf $(TAR)
 

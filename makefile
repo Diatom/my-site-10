@@ -12,14 +12,15 @@ watch: clean
 
 build: clean all
 
-# ci:
-#     rm -rf $(shell find . -type f -not -path "./$(TAR)/*") $(shell find . -type d -not -path "./$(TAR)")
-#     cp -r $(TAR)/* .
-#     rm -rf $(TAR)
 ci:
-	rm -rf * $(TAR)/*
-	mv $(TAR)/* .
-	rmdir $(TAR)
+    rm -rf $(shell find . -type f -not -path "./$(TAR)/*") $(shell find . -type d -not -path "./$(TAR)")
+    cp -r $(TAR)/* .
+    rm -rf $(TAR)
+
+# ci:
+# 	rm -rf * $(TAR)/*
+# 	mv $(TAR)/* .
+# 	rmdir $(TAR)
 
 all:
 	$(PAR) styles html cp

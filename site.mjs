@@ -77,7 +77,7 @@ class Page404 extends Page {
       E.main.chi(
         E.h1.chi(this.title()),
         E.a.props({href: `/`, class: `error`}).chi(`Вернуться на главную`,
-          E.img.props({alt: `Severin404`, src: `/images/severin404.jpg`, class: `error`})
+          E.img.props({alt: `Severin404`, src: `./images/severin404.jpg`, class: `error`})
         )        
       ),
       Footer(this)
@@ -267,7 +267,7 @@ function Layout(...chi) {
         E.meta.props({name: `viewport`, content: `width=device-width, initial-scale=1`}),
         E.title.chi(`Северин Богучарский`),
         E.link.props({rel: `icon`, type: `image/x-icon`, href: `./images/severin.ico`}),
-        E.link.props({rel: `stylesheet`, href: `/main.css`}),
+        E.link.props({rel: `stylesheet`, href: `./main.css`}),
         E.link.props({rel: `preconnect`, href: `https://fonts.googleapis.com`}),
         E.link.props({rel: `preconnect`, href: `https://fonts.gstatic.com`, crossorigin: ``}),
         E.link.props({rel: `preconnect`, href: `https://fonts.googleapis.com`}),
@@ -305,7 +305,7 @@ function Footer(page) {
 
 function FooterIbri(page) {
   return E.footer.chi(
-    E.img.props({alt: `Ibri`, src: `/images/Ibri-logo.png`}),
+    E.img.props({alt: `Ibri`, src: `./images/Ibri-logo.png`}),
     E.p.chi(`Ibri® — все права защищены. Любое использование либо копирование материалов сайта, 
       допускается только cо ссылкой на источник`),
     E.div.chi(

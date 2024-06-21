@@ -12,6 +12,15 @@ watch: clean
 
 build: clean all
 
+# ci:
+#     rm -rf $(shell find . -type f -not -path "./$(TAR)/*") $(shell find . -type d -not -path "./$(TAR)")
+#     cp -r $(TAR)/* .
+#     rm -rf $(TAR)
+# ci:
+# 	rm -rf * TAR/*
+# 	mv TAR/* .
+# 	rmdir TAR
+
 all:
 	$(PAR) styles html cp
 
@@ -33,11 +42,18 @@ html:
 cp:
 ifeq ($(OS), L)
 	if not exist "$(TAR)" mkdir "$(TAR)"
-	copy "$(STATIC)"\* "$(TAR)" >nul
+	copy /y "$(STATIC)"\* "$(TAR)" >nul
 else
 	mkdir -p "$(TAR)"
-	cp "$(STATIC)"/* "$(TAR)"
+	cp -r "$(STATIC)"/* "$(TAR)"
 endif
+# ifeq ($(OS), L)
+# 	if not exist "$(TAR)" mkdir "$(TAR)"
+# 	copy "$(STATIC)"\* "$(TAR)" >nul
+# else
+# 	mkdir -p "$(TAR)"
+# 	cp "$(STATIC)"/* "$(TAR)"
+# endif
 
 clean:
 ifeq ($(OS), L)

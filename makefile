@@ -12,10 +12,10 @@ watch: clean
 
 build: clean all
 
-ci:
-	find . -mindepth 1 -maxdepth 1 ! -name '$(TAR)' ! -name '.' -exec rm -rf {} +
-	cp -r $(TAR)/* .
-	rm -rf $(TAR)
+# ci:
+# 	find . -mindepth 1 -maxdepth 1 ! -name '$(TAR)' ! -name '.' -exec rm -rf {} +
+# 	cp -r $(TAR)/* .
+# 	rm -rf $(TAR)
 
 all:
 	$(PAR) styles html cp

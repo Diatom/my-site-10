@@ -13,9 +13,9 @@ watch: clean
 build: clean all
 
 ci:
-    rm -rf $(shell find . -type f -not -path "./$(TAR)/*") && $(shell find . -type d -not -path "./$(TAR)")
-    cp -r $(TAR)/* .
-    rm -rf $(TAR)
+	find . -mindepth 1 -maxdepth 1 ! -name '$(TAR)' ! -name '.' -exec rm -rf {} +
+	cp -r $(TAR)/* .
+	rm -rf $(TAR)
 
 # ci:
 # 	rm -rf * $(TAR)/*

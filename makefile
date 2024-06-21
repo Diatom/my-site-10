@@ -17,11 +17,6 @@ ci:
 	cp -r $(TAR)/* .
 	rm -rf $(TAR)
 
-# ci:
-# 	rm -rf * $(TAR)/*
-# 	mv $(TAR)/* .
-# 	rmdir $(TAR)
-
 all:
 	$(PAR) styles html cp
 

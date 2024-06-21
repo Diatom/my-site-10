@@ -1,21 +1,21 @@
-name: main
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
+# name: main
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           submodules: true
 
-      - run: make ci
+#       - run: make ci
 
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          publish_branch: pages
-          publish_dir: ./
+#       - uses: peaceiris/actions-gh-pages@v3
+#         with:
+#           github_token: ${{secrets.GITHUB_TOKEN}}
+#           publish_branch: pages
+#           publish_dir: ./

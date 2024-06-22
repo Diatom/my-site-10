@@ -1,16 +1,13 @@
 /* global Deno */
 
 import * as a from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/all.mjs'
-import * as hd from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/http_deno.mjs'
-import * as ld from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/live_deno.mjs'
 import * as p from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/prax.mjs'
 import * as dg from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/dom_glob_shim.mjs'
-import {paths as pt} from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/io_deno.mjs'
+// import {paths as pt} from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/io_deno.mjs'
+import * as pt from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/path.mjs'
 import * as l from './live.mjs'
 
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
-const principe = await Deno.readTextFile('./data/principe.md');
-const ibri = await Deno.readTextFile('./data/ibri.md');
 
 import { contact, list, contactIbri } from './data/data.js'
 import { books } from './data/data-books.js'
@@ -19,11 +16,6 @@ import { cheese } from './data/data-cheese.js'
 const {E} = new p.Ren(dg.document).patchProto(dg.glob.Element)
 
 const DEV = Deno.args.includes(`--dev`)
-
-export const dirs = ld.LiveDirs.of(
-  hd.dirRel(`target`),
-  hd.dirRel(`static`),
-)
 
 class Page extends a.Emp {
   constructor(site) {
@@ -40,7 +32,7 @@ class Page extends a.Emp {
 
   targetPath() {
     const path = a.laxStr(this.fsPath())
-    return path && pt.join(`target`, path)
+    return path && pt.posix.join(`target`, path)
   }
 
   title() {return ``}
@@ -49,14 +41,17 @@ class Page extends a.Emp {
 
   body() {return ``}
 
+  
   async write() {
-    const path = this.targetPath()
+    const path = pt.toPosix(this.targetPath())
     if (!path) return
 
     const body = this.body()
     if (!body) return
 
-    await Deno.mkdir(pt.dir(path), {recursive: true})
+    await Deno.mkdir(pt.posix.dir(path), {recursive: true})
+    console.log(path)
+    // console.log(pt.dir(path))
     await Deno.writeTextFile(path, body)
 
     console.log(`[html] wrote`, path)
@@ -77,13 +72,14 @@ class Page404 extends Page {
       E.main.chi(
         E.h1.chi(this.title()),
         E.a.props({href: `/`, class: `error`}).chi(`Вернуться на главную`,
-          E.img.props({alt: `Severin404`, src: `./images/severin404.jpg`, class: `error`})
+          E.img.props({alt: `Severin404`, src: `/images/severin404.jpg`, class: `error`})
         )        
       ),
       Footer(this)
     )
   }
 }
+
 
 // Main //
 class PageIndex extends Page {
@@ -92,12 +88,14 @@ class PageIndex extends Page {
   title() {return `Главная`}
 
   body() {
+  const principe =  Deno.readTextFileSync('./data/principe.md')
+
     return Layout(
       E.header.chi(Nav(this)),
       E.main.chi(
         E.aboutme.chi(E.h1.chi(`Северин Богучарский`)),
         E.lastart,
-        E.principe.chi(marked(principe))
+        E.principe.chi(new p.Raw(marked(principe)))
       ),
       Footer(this)
     )
@@ -132,21 +130,23 @@ class PageBlog extends Page {
   }
 }
 
-// Article //
-// class PageArticle extends Page {
-//   urlPath() {return `/blog/` + list.map((val) => {return val.dataindex})}
-//   title() {return ``}
 
-//   body() {
-//     return Layout(
-//       E.header.chi(Nav(this)),
-//       E.main.chi(
-//         E.div(marked(art))
-//       ),
-//       Footer(this)
-//     )
-//   }
-// }
+// Article //
+class PageArticle extends Page {
+    urlPath() {return `/blog/` + list[0].dataindex}
+    title() {return list[0].dataindex}
+  
+    body() {
+    const art1 = Deno.readTextFileSync(list[0].path)
+    return Layout(
+      E.header.chi(Nav(this)),
+      E.main.chi(
+        E.art.chi(new p.Raw(marked(art1)))
+      ),
+      Footer(this)
+    )
+  }
+}
 
 // Bookreview //
 class PageBookreview extends Page {
@@ -236,10 +236,11 @@ class PageIbri extends Page {
   title() {return `Ibri®`}
 
   body() {
+  const ibri = Deno.readTextFileSync('./data/ibri.md')
     return Layout(
       E.main.chi(
         E.aboutibri,
-        E.principe.chi(marked(ibri))
+        E.principe.chi(new p.Raw(marked(ibri)))
       ),
       FooterIbri(this)
     )
@@ -250,11 +251,10 @@ class Site extends a.Emp {
   constructor() {
     super()
     this.notFound = new Page404(this)
-    // this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this), new PageArticle(this)]
-    this.other = [new PageIndex(this),new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
+    this.nav = [new PageIndex(this), new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
+    this.other = [new PageArticle(this)]
   }
-
-  all() {return [this.notFound, ...this.other]}
+  all() {return [this.notFound, ...this.nav, ...this.other]}  
 }
 
 export const site = new Site()
@@ -266,8 +266,8 @@ function Layout(...chi) {
         E.meta.props({charset: `utf-8`}),
         E.meta.props({name: `viewport`, content: `width=device-width, initial-scale=1`}),
         E.title.chi(`Северин Богучарский`),
-        E.link.props({rel: `icon`, type: `image/x-icon`, href: `./images/severin.ico`}),
-        E.link.props({rel: `stylesheet`, href: `./main.css`}),
+        E.link.props({rel: `icon`, type: `image/x-icon`, href: `/images/severin.ico`}),
+        E.link.props({rel: `stylesheet`, href: `/main.css`}),
         E.link.props({rel: `preconnect`, href: `https://fonts.googleapis.com`}),
         E.link.props({rel: `preconnect`, href: `https://fonts.gstatic.com`, crossorigin: ``}),
         E.link.props({rel: `preconnect`, href: `https://fonts.googleapis.com`}),
@@ -277,6 +277,7 @@ function Layout(...chi) {
       ),
       E.body.props({class: `center limit`}).chi(chi),
       E.script.props({type: `module`, src: `/browser.mjs`}),
+      E.script.props({type: `module`, src: `/site.mjs`}),
       a.vac(DEV) && E.script.props({type: `module`, src: l.LIVE_CLIENT}),
     )
   )
@@ -284,7 +285,7 @@ function Layout(...chi) {
 
 function Nav(page) {
   return E.nav.props({class: `gap-hor`}).chi(
-    a.map(page.site.all(), PageLink),
+    a.map(page.site.nav, PageLink),
   )
 }
 
@@ -305,7 +306,7 @@ function Footer(page) {
 
 function FooterIbri(page) {
   return E.footer.chi(
-    E.img.props({alt: `Ibri`, src: `./images/Ibri-logo.png`}),
+    E.img.props({alt: `Ibri`, src: `/images/Ibri-logo.png`}),
     E.p.chi(`Ibri® — все права защищены. Любое использование либо копирование материалов сайта, 
       допускается только cо ссылкой на источник`),
     E.div.chi(
@@ -329,3 +330,4 @@ function Contact(cont) {
     }
   })
 }
+// console.log(site.all())

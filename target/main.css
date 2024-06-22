@@ -30,9 +30,6 @@ header a {
   font-size: 1.2rem;
   color: white;
 }
-header a:first-child {
-  display: none;
-}
 header a:hover {
   text-decoration: underline 2px solid white;
 }
@@ -43,7 +40,7 @@ header nav {
 }
 
 h2 {
-  color: #324376;
+  color: white;
   font-size: 1.8em;
 }
 
@@ -84,9 +81,6 @@ footer a {
   margin: 0;
   padding: 0.3rem 1rem 0.3rem 1rem;
   color: white;
-}
-footer nav a:first-child {
-  display: none;
 }
 footer a:hover {
   text-decoration: underline 1px solid white;
@@ -145,7 +139,8 @@ principe {
   flex-wrap: wrap;
   flex-direction: row;
   width: 40%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .error {
@@ -194,6 +189,24 @@ blog h3 {
 }
 blog img {
   width: 100%;
+}
+
+art {
+  margin: 5em 0;
+}
+art span {
+  font-size: 0.9em;
+  color: grey;
+}
+art span:last-child {
+  margin-top: 12em;
+}
+art img {
+  width: 100%;
+}
+art a {
+  display: inline;
+  text-decoration: underline;
 }
 
 books {

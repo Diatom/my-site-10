@@ -19,6 +19,7 @@ const DEV = Deno.args.includes(`--dev`)
 
 class Page extends a.Emp {
   constructor(site) {
+    // console.log(site)
     super()
     this.site = a.reqInst(site, Site)
   }
@@ -50,7 +51,7 @@ class Page extends a.Emp {
     if (!body) return
 
     await Deno.mkdir(pt.posix.dir(path), {recursive: true})
-    console.log(path)
+    // console.log(path)
     // console.log(pt.dir(path))
     await Deno.writeTextFile(path, body)
 
@@ -130,14 +131,18 @@ class PageBlog extends Page {
   }
 }
 
-
 // Article //
 class PageArticle extends Page {
-    urlPath() {return `/blog/` + list[0].dataindex}
-    title() {return list[0].dataindex}
+  constructor(site, arti) {
+    super(site)
+    this.arti = arti
+  }  
+  
+    urlPath() {return `/blog/` + this.arti.dataindex}
+    title() {return this.arti.dataindex}
   
     body() {
-    const art1 = Deno.readTextFileSync(list[0].path)
+    const art1 = Deno.readTextFileSync(this.arti.path)
     return Layout(
       E.header.chi(Nav(this)),
       E.main.chi(
@@ -147,6 +152,40 @@ class PageArticle extends Page {
     )
   }
 }
+
+function Articles(site) {
+    const results = []
+    for (const val of list) {
+      results.push(new PageArticle(site, val))
+    }
+    return results
+}
+// class PageArticleBlog extends Page {
+//   resarr() {
+//     const results = []
+//     for (val of list) {
+//       results.push(new PageArticle(val))
+//     }
+//     return results;
+//   }
+// }
+
+
+// class PageArticle extends Page {
+//     urlPath() {return `/blog/` + list[0].dataindex}
+//     title() {return list[0].dataindex}
+  
+//     body() {
+//     const art1 = Deno.readTextFileSync(list[0].path)
+//     return Layout(
+//       E.header.chi(Nav(this)),
+//       E.main.chi(
+//         E.art.chi(new p.Raw(marked(art1)))
+//       ),
+//       Footer(this)
+//     )
+//   }
+// }
 
 // Bookreview //
 class PageBookreview extends Page {
@@ -199,7 +238,7 @@ class PageCheese extends Page {
       E.main.chi(
         E.div.props({class: `info`}).chi(
           E.search.chi(
-            E.label.props({for: `searchInput`}).chi(`Моя вторая профессия — сыродел. Составил небольшой каталог сыра. Только посмотрите, сколько существует видов :)`),
+            E.label.props({for: `searchInput`}).chi(`Люблю сыр, делаю сыр, веду подсчёт сыра :)`),
             E.div.chi(
               E.input.props({type: `text`, id: `searchInput`, placeholder: `Найти сыр...`}),
               E.button.props({id: `searchButton`, type: `submit`}).chi(`🔍`)
@@ -252,12 +291,13 @@ class Site extends a.Emp {
     super()
     this.notFound = new Page404(this)
     this.nav = [new PageIndex(this), new PageBlog(this), new PageBookreview(this), new PageCheese(this), new PageIbri(this)]
-    this.other = [new PageArticle(this)]
+    this.other = Articles(this)
+    // console.log(`This`, this)
   }
   all() {return [this.notFound, ...this.nav, ...this.other]}  
 }
-
 export const site = new Site()
+// console.log(site.all())
 
 function Layout(...chi) {
   return p.renderDocument(
@@ -330,4 +370,3 @@ function Contact(cont) {
     }
   })
 }
-// console.log(site.all())

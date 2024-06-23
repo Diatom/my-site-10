@@ -209,6 +209,7 @@ blog {
 // Article
 art {
   margin: 5em 0;
+  width: 50%;
   span {
     font-size: 0.9em;
     color: grey;
@@ -364,7 +365,7 @@ form {
 
 @media screen and (max-width: 1250px) {
   // latest-articles, 
-  my-article, blog, books {
+  art, blog, books {
     width: 90%;
   }
   .info {

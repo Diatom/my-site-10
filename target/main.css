@@ -193,6 +193,7 @@ blog img {
 
 art {
   margin: 5em 0;
+  width: 50%;
 }
 art span {
   font-size: 0.9em;
@@ -332,7 +333,7 @@ form input[type=checkbox]:checked + label {
 }
 
 @media screen and (max-width: 1250px) {
-  my-article, blog, books {
+  art, blog, books {
     width: 90%;
   }
   .info {

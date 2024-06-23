@@ -2,5 +2,5 @@ My personal web-site
 
 Using:
 
-* ['js' library](https://github.com/mitranim/js/) by mitranim
-* ['marked'](https://github.com/markedjs/marked) library
+* [js](https://github.com/mitranim/js/) library by mitranim
+* [marked](https://github.com/markedjs/marked) library

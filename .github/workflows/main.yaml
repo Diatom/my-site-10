@@ -12,6 +12,11 @@ jobs:
         with:
           submodules: true
 
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.4.0"
+      - run: npm i -g sass@1.37.5
+
       - run: make build
 
       - uses: peaceiris/actions-gh-pages@v3

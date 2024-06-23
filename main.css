@@ -1,5 +1,5 @@
 html {
-  background-color: hsl(0, 0%, 14%);
+  background-color: #242424;
   color: white;
 }
 
@@ -20,7 +20,7 @@ header, footer, nav, a {
 }
 
 header {
-  background-color: #be264c;
+  background-color: #be264cff;
   justify-content: left;
   width: 100%;
 }
@@ -29,9 +29,6 @@ header a {
   font-family: "Bitter", serif;
   font-size: 1.2rem;
   color: white;
-}
-header a:first-child {
-  display: none;
 }
 header a:hover {
   text-decoration: underline 2px solid white;
@@ -43,7 +40,7 @@ header nav {
 }
 
 h2 {
-  color: #324376;
+  color: white;
   font-size: 1.8em;
 }
 
@@ -84,9 +81,6 @@ footer a {
   margin: 0;
   padding: 0.3rem 1rem 0.3rem 1rem;
   color: white;
-}
-footer nav a:first-child {
-  display: none;
 }
 footer a:hover {
   text-decoration: underline 1px solid white;
@@ -145,7 +139,8 @@ principe {
   flex-wrap: wrap;
   flex-direction: row;
   width: 40%;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .error {
@@ -181,7 +176,7 @@ blog a {
 }
 blog a:hover {
   text-decoration: none;
-  color: #be264c;
+  color: #be264cff;
 }
 blog span {
   font-size: 0.9em;
@@ -194,6 +189,25 @@ blog h3 {
 }
 blog img {
   width: 100%;
+}
+
+art {
+  margin: 5em 0;
+  width: 50%;
+}
+art span {
+  font-size: 0.9em;
+  color: grey;
+}
+art span:last-child {
+  margin-top: 12em;
+}
+art img {
+  width: 100%;
+}
+art a {
+  display: inline;
+  text-decoration: underline;
 }
 
 books {
@@ -217,7 +231,7 @@ books .book p {
 }
 books .book span {
   font-size: 0.8em;
-  color: #be264c;
+  color: #be264cff;
 }
 books .book h3 {
   margin: 0.5em 0;
@@ -248,8 +262,9 @@ search div {
   width: 90%;
   display: flex;
   height: 35px;
-  background-color: #f0e9e9;
+  background-color: #242424;
   border-radius: 10px;
+  border: 0.2px solid #555454;
   padding: 0.5em;
 }
 search input[type=text], search button {
@@ -257,12 +272,14 @@ search input[type=text], search button {
   background: none;
   outline: none;
   line-height: 1;
+  caret-color: white;
+  color: white;
 }
 search input {
   width: 100%;
 }
 search input[type=text]::placeholder {
-  color: #666060;
+  color: #555454;
   font-size: 1.2em;
 }
 search button {
@@ -284,7 +301,7 @@ form label {
   font-size: 0.9em;
 }
 form label:hover {
-  color: #be264c;
+  color: #be264cff;
 }
 form input[type=checkbox] + label {
   background-color: #ddd;
@@ -316,12 +333,14 @@ form input[type=checkbox]:checked + label {
 }
 
 @media screen and (max-width: 1250px) {
-  my-article, blog, books {
+  art, blog, books {
     width: 90%;
   }
+
   .info {
     width: 80%;
   }
+
   header a {
     padding: 0.3rem 1rem 0.3rem 1rem;
   }
@@ -331,6 +350,7 @@ form input[type=checkbox]:checked + label {
     margin: 0 1rem 0 2rem;
     font-size: 1.8em;
   }
+
   footer {
     flex-direction: column;
     flex-wrap: nowrap;
@@ -353,6 +373,7 @@ form input[type=checkbox]:checked + label {
   footer a {
     justify-content: center;
   }
+
   principe {
     width: 80%;
   }
@@ -365,9 +386,11 @@ form input[type=checkbox]:checked + label {
   principe li {
     height: 3rem;
   }
+
   books {
     margin: 5em 0 0 0;
   }
+
   blog {
     flex-wrap: nowrap;
     flex-direction: column;
@@ -377,10 +400,12 @@ form input[type=checkbox]:checked + label {
   blog div {
     width: 80%;
   }
+
   header a {
     font-size: 1em;
     padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   }
+
   form label {
     padding: 2px 4px;
   }

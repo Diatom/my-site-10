@@ -1,5 +1,6 @@
 import * as p from 'https://cdn.jsdelivr.net/npm/@mitranim/js@0.1.25/prax.mjs'
 import { tags } from './data/data-books.js'
+import { tags } from './data/data-cheese.js'
 
 const {E} = p.Ren.native()
 

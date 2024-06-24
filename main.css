@@ -41,7 +41,7 @@ header nav {
 
 h2 {
   color: white;
-  font-size: 1.8em;
+  font-size: 1.4em;
 }
 
 main {
@@ -139,8 +139,10 @@ principe {
   flex-wrap: wrap;
   flex-direction: row;
   width: 40%;
-  justify-content: center;
   align-items: center;
+}
+principe h2 {
+  font-size: 1.8em;
 }
 
 .error {
@@ -208,6 +210,7 @@ art img {
 art a {
   display: inline;
   text-decoration: underline;
+  color: white;
 }
 
 books {
@@ -377,14 +380,11 @@ form input[type=checkbox]:checked + label {
   principe {
     width: 80%;
   }
-  principe div {
-    margin: 0 0 0 1em;
-  }
   principe h2 {
-    font-size: 0.8em;
+    font-size: 1.8em;
   }
-  principe li {
-    height: 3rem;
+  principe p {
+    width: 100%;
   }
 
   books {

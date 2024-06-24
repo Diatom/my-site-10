@@ -95,7 +95,6 @@ class PageIndex extends Page {
       E.header.chi(Nav(this)),
       E.main.chi(
         E.aboutme.chi(E.h1.chi(`Северин Богучарский`)),
-        E.lastart,
         E.principe.chi(new p.Raw(marked(principe)))
       ),
       Footer(this)
@@ -160,32 +159,6 @@ function Articles(site) {
     }
     return results
 }
-// class PageArticleBlog extends Page {
-//   resarr() {
-//     const results = []
-//     for (val of list) {
-//       results.push(new PageArticle(val))
-//     }
-//     return results;
-//   }
-// }
-
-
-// class PageArticle extends Page {
-//     urlPath() {return `/blog/` + list[0].dataindex}
-//     title() {return list[0].dataindex}
-  
-//     body() {
-//     const art1 = Deno.readTextFileSync(list[0].path)
-//     return Layout(
-//       E.header.chi(Nav(this)),
-//       E.main.chi(
-//         E.art.chi(new p.Raw(marked(art1)))
-//       ),
-//       Footer(this)
-//     )
-//   }
-// }
 
 // Bookreview //
 class PageBookreview extends Page {
@@ -332,7 +305,7 @@ function Nav(page) {
 function Footer(page) {
   return E.footer.chi(
     E.p.chi(`Любое использование либо копирование материалов или подборки материалов сайта, 
-      элементов дизайна и оформления допускается только cо ссылкой на источник 
+      допускается только cо ссылкой на источник 
       https://diatom.github.io/ и указанием авторства`),
     E.div.chi(
       Contact(contact)

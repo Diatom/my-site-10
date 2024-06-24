@@ -53,7 +53,7 @@ header {
 }
 h2 {
   color: white;
-  font-size: 1.8em;
+  font-size: 1.4em;
 }
 main {
   display: flex;
@@ -150,8 +150,10 @@ principe {
   flex-wrap: wrap;
   flex-direction: row;
   width: 40%;
-  justify-content: center;
   align-items: center;
+  h2 {
+    font-size: 1.8em;
+  }
 }
 
 // 404
@@ -223,6 +225,7 @@ art {
   a {
     display: inline;
     text-decoration: underline;
+    color: white;
   }
 }
 
@@ -427,14 +430,11 @@ form {
   // }
   principe {
     width: 80%;
-    div {
-      margin: 0 0 0 1em;
-    }
     h2 {
-      font-size: 0.8em;
+      font-size: 1.8em;
     }
-    li {
-      height: 3rem;
+    p {
+      width: 100%;
     }
   }
   books {
